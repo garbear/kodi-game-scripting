@@ -351,7 +351,7 @@ class Addon():
         if self._repo:
             self._args.git.commit_repo(
                 self._repo, self._args.working_directory,
-                "Updated by kodi-game-scripting",
+                "Fix trailing newlines (by kodi-game-scripting)",
                 squash=self._args.git_noclean)
 
     def push(self):
