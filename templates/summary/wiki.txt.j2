@@ -15,7 +15,7 @@
 {% else %}
     {% set license_status = 'yes' %}
 {% endif %}
-| License= {{ '{{' }}{{ license_status }}|{{ addon.libretro_info.license.split('|') | join(', ') | default('?') }}{{ '}}' }}
+| License= {{ '{{' }}{{ license_status }}|{{ addon.libretro_info.get('license', '').split('|') | join(', ') | default('?') }}{{ '}}' }}
 {% set supports_vfs = 'no' if addon.system_info.need_fullpath else 'yes' %}
 | Supports VFS= {{ '{{' }}{{ supports_vfs }}|{{ supports_vfs }}{{ '}}' }}
 | Supports Rewind= ?
