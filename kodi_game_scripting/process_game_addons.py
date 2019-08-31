@@ -19,7 +19,6 @@
 import argparse
 import datetime
 import os
-import multiprocessing
 import re
 import shutil
 import subprocess
@@ -244,7 +243,7 @@ class KodiGameAddons:
                             '-DCMAKE_INSTALL_PREFIX={}'.format(install_dir),
                             cmake_dir], cwd=build_dir, check=True)
             subprocess.run([os.environ.get('CMAKE', 'cmake'), '--build', '.',
-                            '--', '-j{}'.format(multiprocessing.cpu_count())],
+                            ],
                            cwd=build_dir, check=True)
         except subprocess.CalledProcessError:
             print("Compilation failed!")
