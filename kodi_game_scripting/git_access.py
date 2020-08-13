@@ -42,6 +42,11 @@ class GitHubOrg:
         """ Initialize GitHub API instance """
         try:
             apitoken = os.environ.get('GITHUB_ACCESS_TOKEN', None)
+            if not apitoken:
+                # GitHub reserves the GITHUB_ environment variable prefix for
+                # internal use by GitHub
+                apitoken = os.environ.get('ACCESS_TOKEN', None)
+
             if apitoken:
                 print("Authenticating with GitHub API token")
                 self._github = github.Github(apitoken)
