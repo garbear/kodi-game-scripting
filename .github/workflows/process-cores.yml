@@ -64,4 +64,4 @@ jobs:
 
     - name: Process cores
       run: |
-        ./process_game_addons.py --game-addons-dir="game-addons" --kodi-source-dir="../kodi" --compile
+        ./process_game_addons.py --game-addons-dir="game-addons" --kodi-source-dir="../kodi" --git --compile --push-branch=testing-github-ci --filter="nestopia"
