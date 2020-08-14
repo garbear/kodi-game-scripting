@@ -55,7 +55,7 @@ ADDONS = {
     'flycast':                   ('flycast',                    'Makefile',          '.',                 'jni', {}),
     'fmsx':                      ('fmsx-libretro',              'Makefile',          '.',                 'jni', {}),
     'fsuae':                     ('libretro-fsuae',             'Makefile.libretro', '.',                 'jni', {'branch': 'libretro-fsuae'}),  # Fails to build
-    'fuse':                      ('fuse-libretro',              'Makefile',          '.',                 'jni', {}),
+    'fuse':                      ('fuse-libretro',              'Makefile',          '.',                 'jni', {'cmake_options': 'USE_GLIB=0'}),
     'gambatte':                  ('gambatte-libretro',          'Makefile',          '.',                 'libgambatte/libretro/jni', {}),
     'genplus':                   ('Genesis-Plus-GX',            'Makefile.libretro', '.',                 'libretro/jni', {'soname': 'genesis_plus_gx'}),
     'gw':                        ('gw-libretro',                'Makefile',          '.',                 'jni', {}),
