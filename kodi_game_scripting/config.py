@@ -54,7 +54,7 @@ ADDONS = {
     'fceumm':                    ('libretro-fceumm',            'Makefile',          '.',                 'jni', {}),
     'flycast':                   ('flycast',                    'Makefile',          '.',                 'jni', {}),
     'fmsx':                      ('fmsx-libretro',              'Makefile',          '.',                 'jni', {}),
-    #'fsuae':                     ('libretro-fsuae',             'Makefile.libretro', '.',                 'jni', {'branch': 'libretro-fsuae'}),  # Fails to build
+    'fsuae':                     ('libretro-fsuae',             'Makefile.libretro', '.',                 'jni', {'branch': 'libretro-fsuae'}),  # Fails to build
     'fuse':                      ('fuse-libretro',              'Makefile',          '.',                 'jni', {}),
     'gambatte':                  ('gambatte-libretro',          'Makefile',          '.',                 'libgambatte/libretro/jni', {}),
     'genplus':                   ('Genesis-Plus-GX',            'Makefile.libretro', '.',                 'libretro/jni', {'soname': 'genesis_plus_gx'}),
