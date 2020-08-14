@@ -45,6 +45,7 @@ jobs:
     - script: |
         dpkg -s libasound2-dev || sudo apt-get install -y libasound2-dev # Required by mame
         dpkg -s libglib2.0-dev || sudo apt-get install -y libglib2.0-dev # Required by fsuae
+        dpkg -s libgtk2.0-dev || sudo apt-get install -y libgtk2.0-dev # Required by fsuae
         dpkg -s libpcap-dev || sudo apt-get install -y libpcap-dev # Required by desmume
         dpkg -s mesa-common-dev || sudo apt-get install -y mesa-common-dev # Required by flycast and parallel_n64
       displayName: 'Install system dependencies'
