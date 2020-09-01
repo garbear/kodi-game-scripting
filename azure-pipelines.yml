@@ -22,7 +22,7 @@ jobs:
   - job: Build
 
     pool:
-      vmImage: 'ubuntu-20.04'
+      vmImage: 'ubuntu-18.04'
 
     strategy:
         matrix:
@@ -50,6 +50,7 @@ jobs:
         dpkg -s libpcap-dev || sudo apt-get install -y libpcap-dev # Required by desmume
         #dpkg -s libsdl2-dev || sudo apt-get install -y libsdl2-dev # Required by dosbox-core
         dpkg -s mesa-common-dev || sudo apt-get install -y mesa-common-dev # Required by craft, desmume, flycast, parallel_n64 and mupen64plus-nx
+        dpkg -s libgl1-mesa-dev || sudo apt-get install -y libgl1-mesa-dev # Required by craft, openlara, parallel_n64 on ubuntu-18.04
         dpkg -s nasm || sudo apt-get install -y nasm # Required by mupen64plus-nx and parallext
         #dpkg -s ninja-build || sudo apt-get install -y ninja-build # Required by dosbox-core
       displayName: 'Install system dependencies'
