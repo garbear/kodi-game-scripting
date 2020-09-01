@@ -63,6 +63,7 @@ ADDONS = {
     'dosbox-core':               ('dosbox-core',                'Makefile.libretro', 'libretro',          'libretro/jni', {'branch': 'libretro --'}),  # Requires CMake 3.11 or higher
     'ecwolf':                    ('ecwolf',                     'Makefile',          'src/libretro',       'src/libretro/jni', {}),
     'fbalpha2012':               ('fbalpha2012',                'makefile.libretro', 'svn-current/trunk', 'svn-current/trunk/projectfiles/libretro-android/jni', {}),
+    'ecwolf':                    ('ecwolf',                     'Makefile',          'src/libretro',       'src/libretro/jni', {}),
     'fbneo':                     ('FBNeo',                      'Makefile',          'src/burner/libretro', 'jni', {}),
     'fceumm':                    ('libretro-fceumm',            'Makefile',          '.',                 'jni', {}),
     'flycast':                   ('flycast',                    'Makefile',          '.',                 'jni', {}),
