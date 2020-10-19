@@ -16,7 +16,7 @@
 
 # TODO: Run as a cron job
 trigger:
-- todo-disabled-for-now
+- master
 
 schedules:
 - cron: "0 2 * * *"  # Every day at 02:00 UTC
