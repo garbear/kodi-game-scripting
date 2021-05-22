@@ -83,24 +83,6 @@ jobs:
       parameters:
         # List add-ons in reverse order for sorted results in the kodi-game org
         addons:
-          - yabause
-          - xmil
-          - virtualjaguar
-          - vice
-          - vecx
-          - vbam
-          - vba-next
-          - uzem
-          #- uae4arm # Doesn't run on x86_64
-          - uae
-          - tyrquake
-          - thepowdertoy
-          - theodore
-          - tgbdual
-          - supafaust
-          - stella
-          - snes9x2010
-          - snes9x2002
           - snes9x
           - smsplus-gx
           - scummvm
