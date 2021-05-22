@@ -94,7 +94,7 @@ ADDONS = {
     'mesen':                     ('SourMesen/Mesen',            'Makefile',          'Libretro',          'libretro/jni', {}),
     'meteor':                    ('meteor-libretro',            'Makefile',          'libretro',          'libretro/jni', {}),
     'mgba':                      ('mgba',                       'Makefile',          '.',                 'jni', {}),
-    'mrboom':                    ('Javanaise/mrboom-libretro',  'Makefile',          '.',                 'libretro/jni', {}),
+    'mrboom':                    ('garbear/mrboom-libretro',    'Makefile',          '.',                 'libretro/jni', {'branch': 'kodi-game-scripting'}),
     'mu':                        ('Mu',                         'Makefile.libretro', 'libretroBuildSystem', 'libretroBuildSystem/jni', {}),
     'mupen64plus-nx':            ('mupen64plus-libretro-nx',    'Makefile',          '.',                 'jni', {'soname': 'mupen64plus_next'}),
     'nestopia':                  ('nestopia',                   'Makefile',          'libretro',          'libretro/jni', {}),
