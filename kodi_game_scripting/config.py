@@ -120,6 +120,7 @@ ADDONS = {
     'parallext':                 ('parallext',                  'Makefile',          '.',                 'libretro/jni', {'soname': 'parallel_n64'}),
     'pcem':                      ('libretro-pcem',              'Makefile.libretro', 'src',               'jni', {}),
     'pcsx-rearmed':              ('pcsx_rearmed',               'Makefile.libretro', '.',                 'jni', {'soname': 'pcsx_rearmed'}),
+    'pcsx2':                     ('pcsx2',                      '',                  '.',                 '', {'cmake': True, 'branch': 'main', 'cmake_options': '-DLIBRETRO=ON'}),
     'picodrive':                 ('picodrive',                  'Makefile.libretro', '.',                 'jni', {}),
     'pocketcdg':                 ('libretro-pocketcdg',         'Makefile',          '.',                 'jni', {}),
     'pokemini':                  ('PokeMini',                   'Makefile.libretro', '.',                 'jni', {}),
