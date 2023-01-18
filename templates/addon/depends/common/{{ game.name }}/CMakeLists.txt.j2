@@ -25,6 +25,7 @@ if(CORE_SYSTEM_NAME STREQUAL windows)
   endif()
   set(BUILD_COMMAND ${MINGW_MAKE} -j$ENV{NUMBER_OF_PROCESSORS} -C {{ makefile.dir }} -f {{ makefile.file }} platform=win MSYSTEM=${MSYSTEM} {{ config.cmake_options | default('') }} ${LIBRETRO_DEBUG} GIT_VERSION=)
 elseif(CORE_SYSTEM_NAME STREQUAL linux)
+  set(CONFIGURE_COMMAND ./autogen.sh && ./configure && make gen)
   set(BUILD_COMMAND $(MAKE) -C {{ makefile.dir }} -f {{ makefile.file }} {{ config.cmake_options | default('') }} platform=unix ${LIBRETRO_DEBUG} GIT_VERSION=)
 elseif(CORE_SYSTEM_NAME STREQUAL osx)
   set(BUILD_COMMAND $(MAKE) -C {{ makefile.dir }} -f {{ makefile.file }} {{ config.cmake_options | default('') }} platform=osx ${LIBRETRO_DEBUG} GIT_VERSION=)
@@ -80,7 +81,7 @@ endif()
 externalproject_add(${PROJECT_NAME}
                     SOURCE_DIR ${PROJECT_SOURCE_DIR}
                     PREFIX ${PROJECT_NAME}
-                    CONFIGURE_COMMAND ""
+                    CONFIGURE_COMMAND ${CONFIGURE_COMMAND}
                     INSTALL_COMMAND ""
                     BUILD_COMMAND ${BUILD_COMMAND}
                     BUILD_IN_SOURCE 1)
