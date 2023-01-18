@@ -88,7 +88,7 @@ ADDONS = {
     'freechaf':                  ('kodi-game/FreeChaF',         'Makefile',          '.',                 'jni', {}),
     'freeintv':                  ('FreeIntv',                   'Makefile',          '.',                 'jni', {}),
     'frodo':                     ('frodo-libretro',             'Makefile',          '.',                 'jni', {}),
-    #'fsuae':                     ('kodi-game/libretro-fsuae',   'Makefile.libretro', '.',                 'jni', {'branch': 'libretro-fsuae'}), # Requires configure command: "./autogen.sh && ./configure && make gen"
+    'fsuae':                     ('kodi-game/libretro-fsuae',   'Makefile.libretro', '.',                 'jni', {'branch': 'libretro-fsuae'}), # Requires configure command: "./autogen.sh && ./configure && make gen"
     'fuse':                      ('fuse-libretro',              'Makefile',          '.',                 'build/jni', {}),
     'galaxy':                    ('galaxy-libretro',            'Makefile',          '.',                 'jni', {'branch': 'main', 'soname': 'galaksija'}),
     'gambatte':                  ('gambatte-libretro',          'Makefile',          '.',                 'libgambatte/libretro/jni', {}),

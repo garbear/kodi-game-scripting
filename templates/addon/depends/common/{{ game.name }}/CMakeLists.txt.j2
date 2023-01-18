@@ -33,6 +33,7 @@ if(CORE_SYSTEM_NAME STREQUAL windows)
                     platform=win
                     {{ config.cmake_options | default('') }})
 elseif(CORE_SYSTEM_NAME STREQUAL linux)
+  set(CONFIGURE_COMMAND ./autogen.sh && ./configure && make gen)
   set(BUILD_COMMAND $(MAKE)
                     -C {{ makefile.dir }}
                     -f {{ makefile.file }}
@@ -141,7 +142,7 @@ endif()
 externalproject_add(${PROJECT_NAME}
                     SOURCE_DIR ${PROJECT_SOURCE_DIR}
                     PREFIX ${PROJECT_NAME}
-                    CONFIGURE_COMMAND ""
+                    CONFIGURE_COMMAND ${CONFIGURE_COMMAND}
                     INSTALL_COMMAND ""
                     BUILD_COMMAND ${BUILD_COMMAND}
                     BUILD_IN_SOURCE 1)
