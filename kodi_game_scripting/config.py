@@ -121,7 +121,7 @@ ADDONS = {
     'pcem':                      ('libretro-pcem',              'Makefile.libretro', 'src',               'jni', {}),
     'pcsx-rearmed':              ('pcsx_rearmed',               'Makefile.libretro', '.',                 'jni', {'soname': 'pcsx_rearmed'}),
     'pcsx2':                     ('pcsx2',                      '',                  '.',                 '', {'cmake': True, 'branch': 'main', 'cmake_options': '-DLIBRETRO=ON'}),
-    'picodrive':                 ('picodrive',                  'Makefile.libretro', '.',                 'jni', {}),
+    'picodrive':                 ('kodi-game/picodrive',        'Makefile.libretro', '.',                 'jni', {}),
     'pocketcdg':                 ('libretro-pocketcdg',         'Makefile',          '.',                 'jni', {}),
     'pokemini':                  ('PokeMini',                   'Makefile.libretro', '.',                 'jni', {}),
     'potator':                   ('potator',                    'Makefile' ,         ' platform/libretro', 'platform/libretro/jni', {}),
