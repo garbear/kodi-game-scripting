@@ -178,6 +178,7 @@ ADDONS = {
     'vice_xscpu64':              ('vice-libretro',              'Makefile',          '.',                 'jni', {'soname': 'vice_xscpu64', 'cmake_options': 'EMUTYPE=xscpu64'}),
     'vice_xvic':                 ('vice-libretro',              'Makefile',          '.',                 'jni', {'soname': 'vice_xvic', 'cmake_options': 'EMUTYPE=xvic'}),
     'virtualjaguar':             ('virtualjaguar-libretro',     'Makefile',          '.',                 'jni', {}),
+    'vram-test':                 ('libretro-samples',           'Makefile',          'video/software/rendering_direct_to_vram', 'video/software/rendering_direct_to_vram/jni', {'soname': 'testsw_vram'}),
     #'wolfenstein3d':             ('kodi-game/libretro-wolfenstein3d', 'Makefile.libretro', '.',           'jni', {}),  # Requires SDL 1
     'xmil':                      ('xmil-libretro',              'Makefile.libretro', 'libretro',          'libretro/jni', {'soname': 'x1'}),
     'xrick':                     ('xrick-libretro',             'Makefile.libretro', '.',                 'jni', {}),
