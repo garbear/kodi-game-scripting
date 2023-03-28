@@ -67,7 +67,7 @@ jobs:
       parameters:
         # List add-ons in reverse order for sorted results in the kodi-game org
         addons:
-          - minivmac
+          - stella
 
     - script: |
         echo
