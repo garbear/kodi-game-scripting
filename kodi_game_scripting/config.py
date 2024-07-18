@@ -118,7 +118,7 @@ ADDONS = {
     'mesen':                     ('Mesen',                      'Makefile',          'Libretro',          'Libretro/jni', {}),
     'mesen-s':                   ('Mesen-S',                    'Makefile',          'Libretro',          'Libretro/jni', {}),
     'meteor':                    ('meteor-libretro',            'Makefile',          'libretro',          'libretro/jni', {}),
-    'mgba':                      ('mgba-emu/mgba',              '',                  '.',                 '', {'cmake': True}),
+    'mgba':                      ('mgba',                       'Makefile',          '.',                 'libretro-build/jni', {}),
     'minivmac':                  ('kodi-game/libretro-minivmac','Makefile',          '.',                 'jni', {}),
     'moonlight':                 ('kodi-game/moonlight-libretro','Makefile',          '.',                 '', {}),
     'mrboom':                    ('kodi-game/mrboom-libretro',  'Makefile',          '.',                 'libretro/jni', {}),
