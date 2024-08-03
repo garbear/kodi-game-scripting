@@ -45,13 +45,6 @@ jobs:
         knownHostsEntry: "|1|5qWKb7xAKkWXfLw6ZdNAs9FzKNA=|A+W82x1iZWz+nXHgPdlIQmsEOsU= ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ=="
         sshKeySecureFile: 'id_rsa-azure'
 
-    - script: |
-        sudo apt update
-
-        # beetle-psx-hw
-        dpkg -s libgl-dev || sudo apt install libgl-dev
-      displayName: 'Install system dependencies'
-
     # TODO: git authorship
     - script: |
         git config --global user.name "Garrett Brown"
@@ -74,23 +67,7 @@ jobs:
       parameters:
         # List add-ons in reverse order for sorted results in the kodi-game org
         addons:
-          - vice_xvic
-          - vice_xscpu64
-          - vice_xplus4
-          - vice_xpet
-          - vice_xcbm5x0
-          - vice_xcbm2
-          - vice_x64sc
-          - vice_x64dtv
-          - vice_x64
-          - vice_x128
-          - uae
-          - pcsx-rearmed
-          - bsnes
-          - beetle-saturn
-          - beetle-psx-hw
-          - beetle-psx
-          - 81
+          - vbam
 
     - script: |
         echo
