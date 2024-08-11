@@ -6,6 +6,8 @@ list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR})
 
 include(ExternalProject)
 
+set(CMAKE_CXX_STANDARD 17)
+
 string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UC)
 
 # Jenkins CI jobs can have this env var set
