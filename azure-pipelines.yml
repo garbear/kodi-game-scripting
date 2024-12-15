@@ -1,6 +1,6 @@
 ################################################################################
 #
-# Pipeline to process Kodi game -addons
+# Pipeline to process Kodi game-addons
 #
 ################################################################################
 
@@ -19,209 +19,128 @@ trigger:
 - todo-disabled-for-now
 
 jobs:
-  - job: Build
 
+  - job: BuildYabauseToReicast
+    displayName: "Build yabause to reicast on ubuntu-22.04"
     pool:
       vmImage: 'ubuntu-22.04'
-
     strategy:
-        matrix:
-          Python310:
-            python.version: '3.10'
-
-    timeoutInMinutes: 0 # Use the maximum limit
-
+      matrix:
+        Python310:
+          python.version: '3.10'
+    timeoutInMinutes: 0
     steps:
-    # Download secure file to the agent machine
-    - task: DownloadSecureFile@1
-      name: privateKey # The name with which to reference the secure file's path on the agent
-      displayName: 'Download SSH private key'
-      inputs:
-        secureFile: 'id_rsa-azure' # The file name or GUID of the secure file
+      # Include common steps
+      - template: .azure/common-steps.yml
+        parameters:
+          pythonVersion: '3.10'
 
-    # Install SSH key prior to a build or deployment
-    - task: InstallSSHKey@0
-      inputs:
-        knownHostsEntry: "|1|5qWKb7xAKkWXfLw6ZdNAs9FzKNA=|A+W82x1iZWz+nXHgPdlIQmsEOsU= ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ=="
-        sshKeySecureFile: 'id_rsa-azure'
+      - script: |
+          sudo apt update
 
-    - script: |
-        sudo apt update
+          # same_cdi
+          dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
 
-        # 3dengine
-        dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
+          # vecx
+          dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
 
-        # beetle-psx-hw
-        dpkg -s libgl-dev || sudo apt install libgl-dev
+          # wolfenstein3d
+          #dpkg -s libsdl1.2-dev || sudo apt install -y libsdl1.2-dev
 
-        # boom3
-        dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
+          # yabasanshiro
+          dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
+        displayName: 'Install system dependencies'
 
-        # craft
-        dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
+      - template: .azure/azure-process-addon.yml
+        parameters:
+          addons:
+            - yabause
+            - yabasanshiro
+            - xrick
+            - xmil
+            #- wolfenstein3d # Doesn't compile
+            - virtualjaguar
+            - vice_xvic
+            - vice_xscpu64
+            - vice_xplus4
+            - vice_xpet
+            - vice_xcbm5x0
+            - vice_xcbm2
+            - vice_x64sc
+            - vice_x64dtv
+            - vice_x64
+            - vice_x128
+            - vemulator
+            - vecx
+            - vbam
+            - vba-next
+            - uzem
+            #- uae4arm # Doesn't run on x86_64
+            - uae
+            - tyrquake
+            - thepowdertoy
+            - theodore
+            - tgbdual
+            - swanstation
+            - supafaust
+            - stella
+            - snes9x2010
+            - snes9x2002
+            - snes9x
+            - smsplus-gx
+            - scummvm
+            - sameboy
+            - same_cdi
+            #- rustation # Disabled for now
+            - retro8
+            - remotejoy
+            - reminiscence
 
-        # desmume
-        dpkg -s libpcap-dev || sudo apt install -y libpcap-dev
-        dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
+  - job: BuildRedbook
+    displayName: "Build redbook on ubuntu-20.04"
+    pool:
+      vmImage: 'ubuntu-20.04'
+    dependsOn: BuildYabauseToReicast
+    strategy:
+      matrix:
+        Python310:
+          python.version: '3.10'
+    timeoutInMinutes: 0
+    steps:
+      - template: .azure/common-steps.yml
+        parameters:
+          pythonVersion: '3.10'
 
-        # dolphin
-        dpkg -s libegl1-mesa-dev || sudo apt install libegl1-mesa-dev
-        dpkg -s libusb-1.0-0-dev || sudo apt install -y libusb-1.0-0-dev
-        dpkg -s libxi-dev || sudo apt install -y libxi-dev
-        dpkg -s libxrandr-dev || sudo apt install -y libxrandr-dev
-        dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
+      - template: .azure/azure-process-addon.yml
+        parameters:
+          addons:
+            - redbook
 
-        # dosbox-core
-        #dpkg -s libasound2-dev || sudo apt install -y libasound2-dev
-        #dpkg -s libtool-bin || sudo apt install -y libtool-bin
-        #dpkg -s ninja-build || sudo apt install -y ninja-build
+  - job: BuildRaceToPCSXRearmed
+    displayName: "Build race to pcsx-rearmed on ubuntu-22.04"
+    pool:
+      vmImage: 'ubuntu-22.04'
+    dependsOn: BuildRedbook
+    strategy:
+      matrix:
+        Python310:
+          python.version: '3.10'
+    timeoutInMinutes: 0
+    steps:
+      - template: .azure/common-steps.yml
+        parameters:
+          pythonVersion: '3.10'
 
-        # easyrpg
-        dpkg -s libfmt-dev || sudo apt install -y libfmt-dev
-        dpkg -s libinih-dev || sudo apt install -y libinih-dev
+      - script: |
+          sudo apt update
 
-        # flycast
-        dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
+          # ppsspp
+          dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
+        displayName: 'Install system dependencies'
 
-        # fsuae
-        dpkg -s libglib2.0-dev || sudo apt install -y libglib2.0-dev
-        dpkg -s libmpeg2-4-dev || sudo apt install -y libmpeg2-4-dev
-
-        # fuse
-        #dpkg -s libglib2.0-dev || sudo apt install -y libglib2.0-dev
-
-        # hbmame
-        dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
-        dpkg -s python2 || sudo apt install -y python2
-
-        # lrps2
-        dpkg -s ccache || sudo apt install -y ccache
-        dpkg -s libaio-dev || sudo apt install -y libaio-dev
-        dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
-
-        # mame
-        dpkg -s libasound2-dev || sudo apt install -y libasound2-dev
-        dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
-
-        # mame2016
-        dpkg -s libasound2-dev || sudo apt install -y libasound2-dev
-        dpkg -s python2 || sudo apt install -y python2
-
-        # melonds
-        dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
-
-        # moonlight
-        dpkg -s libavcodec-dev || sudo apt install -y libavcodec-dev
-        dpkg -s libavdevice-dev || sudo apt install -y libavdevice-dev
-        dpkg -s libavformat-dev || sudo apt install -y libavformat-dev
-        dpkg -s libcurl4-openssl-dev || sudo apt install -y libcurl4-openssl-dev
-        dpkg -s libgl-dev || sudo apt install -y libgl-dev
-        dpkg -s libopus-dev || sudo apt install -y libopus-dev
-
-        # mupen64plus
-        #dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
-        #dpkg -s nasm || sudo apt install -y nasm
-
-        # mupen64plus-nx
-        dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
-        dpkg -s nasm || sudo apt install -y nasm
-
-        # openlara
-        dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
-
-        # parallel_n64
-        dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
-        dpkg -s nasm || sudo apt install -y nasm
-
-        # parallext
-        dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
-        dpkg -s nasm || sudo apt install -y nasm
-
-        # ppsspp
-        dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
-
-        # reicast
-        #dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
-
-        # same_cdi
-        dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
-
-        # vecx
-        dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
-
-        # wolfenstein3d
-        #dpkg -s libsdl1.2-dev || sudo apt install -y libsdl1.2-dev
-
-        # yabasanshiro
-        dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
-      displayName: 'Install system dependencies'
-
-    # TODO: git authorship
-    - script: |
-        git config --global user.name "Garrett Brown"
-        git config --global user.email "themagnificentmrb@gmail.com"
-      displayName: 'Set Git authorship'
-
-    - script: |
-        git clone --branch retroplayer-21 --depth=1 https://github.com/garbear/xbmc.git kodi
-      displayName: 'Clone Kodi'
-
-    - task: UsePythonVersion@0
-      inputs:
-        versionSpec: $(python.version)
-
-    - script: |
-        pip3 install -r requirements.txt
-      displayName: 'Install Python requirements'
-
-    - template: .azure/azure-process-addon.yml
-      parameters:
-        # List add-ons in reverse order for sorted results in the kodi-game org
-        addons:
-          - yabause
-          - yabasanshiro
-          - xrick
-          - xmil
-          #- wolfenstein3d # Doesn't compile
-          - virtualjaguar
-          - vice_xvic
-          - vice_xscpu64
-          - vice_xplus4
-          - vice_xpet
-          - vice_xcbm5x0
-          - vice_xcbm2
-          - vice_x64sc
-          - vice_x64dtv
-          - vice_x64
-          - vice_x128
-          #- vice # Renamed to vice_x64
-          - vemulator
-          - vecx
-          - vbam
-          - vba-next
-          - uzem
-          #- uae4arm # Doesn't run on x86_64
-          - uae
-          - tyrquake
-          - thepowdertoy
-          - theodore
-          - tgbdual
-          - swanstation
-          - supafaust
-          - stella
-          - snes9x2010
-          - snes9x2002
-          - snes9x
-          - smsplus-gx
-          - scummvm
-          - sameboy
-          - same_cdi
-          #- rustation # Disabled for now
-          - retro8
-          - remotejoy
-          - reminiscence
-          #- reicast # Renamed to flycast
-          - redbook
+      - template: .azure/azure-process-addon.yml
+        parameters:
+          addons:
           - race
           - quicknes
           - quasi88
@@ -234,18 +153,193 @@ jobs:
           - pocketcdg
           - picodrive
           - pcsx-rearmed
+
+  - job: BuildPcemToParallext
+    displayName: "Build pcem and parallext on ubuntu-20.04"
+    pool:
+      vmImage: 'ubuntu-20.04'
+    dependsOn: BuildRaceToPCSXRearmed
+    strategy:
+      matrix:
+        Python310:
+          python.version: '3.10'
+    timeoutInMinutes: 0
+    steps:
+      - template: .azure/common-steps.yml
+        parameters:
+          pythonVersion: '3.10'
+
+      - script: |
+          sudo apt update
+
+          # parallext
+          dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
+          dpkg -s nasm || sudo apt install -y nasm
+        displayName: 'Install system dependencies'
+
+      - template: .azure/azure-process-addon.yml
+        parameters:
+          addons:
           - pcem
           - parallext
+
+  - job: BuildParallelN64ToOpera
+    displayName: "Build parallel_n64 and opera on ubuntu-22.04"
+    pool:
+      vmImage: 'ubuntu-22.04'
+    dependsOn: BuildPcemToParallext
+    strategy:
+      matrix:
+        Python310:
+          python.version: '3.10'
+    timeoutInMinutes: 0
+    steps:
+      - template: .azure/common-steps.yml
+        parameters:
+          pythonVersion: '3.10'
+
+      - script: |
+          sudo apt update
+
+          # parallel_n64
+          dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
+          dpkg -s nasm || sudo apt install -y nasm
+        displayName: 'Install system dependencies'
+
+      - template: .azure/azure-process-addon.yml
+        parameters:
+          addons:
           - parallel_n64
           - opera
+
+  - job: BuildOpenLara
+    displayName: "Build openlara on ubuntu-20.04"
+    pool:
+      vmImage: 'ubuntu-20.04'
+    dependsOn: BuildParallelN64ToOpera
+    strategy:
+      matrix:
+        Python310:
+          python.version: '3.10'
+    timeoutInMinutes: 0
+    steps:
+      - template: .azure/common-steps.yml
+        parameters:
+          pythonVersion: '3.10'
+
+      - script: |
+          sudo apt update
+
+          # openlara
+          dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
+        displayName: 'Install system dependencies'
+
+      - template: .azure/azure-process-addon.yml
+        parameters:
+          addons:
           - openlara
+
+  - job: BuildOberonTo2048
+    displayName: "Build oberon to 2048 on ubuntu-22.04"
+    pool:
+      vmImage: 'ubuntu-22.04'
+    dependsOn: BuildOpenLara
+    strategy:
+      matrix:
+        Python310:
+          python.version: '3.10'
+    timeoutInMinutes: 0
+    steps:
+      - template: .azure/common-steps.yml
+        parameters:
+          pythonVersion: '3.10'
+
+      - script: |
+          sudo apt update
+
+          # 3dengine
+          dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
+
+          # beetle-psx-hw
+          dpkg -s libgl-dev || sudo apt install libgl-dev
+
+          # boom3
+          dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
+
+          # craft
+          dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
+
+          # desmume
+          dpkg -s libpcap-dev || sudo apt install -y libpcap-dev
+          dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
+
+          # dolphin
+          dpkg -s libegl1-mesa-dev || sudo apt install libegl1-mesa-dev
+          dpkg -s libusb-1.0-0-dev || sudo apt install -y libusb-1.0-0-dev
+          dpkg -s libxi-dev || sudo apt install -y libxi-dev
+          dpkg -s libxrandr-dev || sudo apt install -y libxrandr-dev
+          dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
+
+          # easyrpg
+          dpkg -s libfmt-dev || sudo apt install -y libfmt-dev
+          dpkg -s libinih-dev || sudo apt install -y libinih-dev
+
+          # flycast
+          dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
+
+          # fsuae
+          dpkg -s libglib2.0-dev || sudo apt install -y libglib2.0-dev
+          dpkg -s libmpeg2-4-dev || sudo apt install -y libmpeg2-4-dev
+
+          # fuse
+          #dpkg -s libglib2.0-dev || sudo apt install -y libglib2.0-dev
+
+          # hbmame
+          dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
+          dpkg -s python2 || sudo apt install -y python2
+
+          # lrps2
+          dpkg -s ccache || sudo apt install -y ccache
+          dpkg -s libaio-dev || sudo apt install -y libaio-dev
+          dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
+
+          # mame
+          dpkg -s libasound2-dev || sudo apt install -y libasound2-dev
+          dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
+
+          # mame2016
+          dpkg -s libasound2-dev || sudo apt install -y libasound2-dev
+          dpkg -s python2 || sudo apt install -y python2
+
+          # melonds
+          dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
+
+          # moonlight
+          dpkg -s libavcodec-dev || sudo apt install -y libavcodec-dev
+          dpkg -s libavdevice-dev || sudo apt install -y libavdevice-dev
+          dpkg -s libavformat-dev || sudo apt install -y libavformat-dev
+          dpkg -s libcurl4-openssl-dev || sudo apt install -y libcurl4-openssl-dev
+          dpkg -s libgl-dev || sudo apt install -y libgl-dev
+          dpkg -s libopus-dev || sudo apt install -y libopus-dev
+
+          # mupen64plus
+          #dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
+          #dpkg -s nasm || sudo apt install -y nasm
+
+          # mupen64plus-nx
+          dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
+          dpkg -s nasm || sudo apt install -y nasm
+        displayName: 'Install system dependencies'
+
+      - template: .azure/azure-process-addon.yml
+        parameters:
+          addons:
           - oberon
           - o2em
           - nx
           - nestopia
           - neocd
           - mupen64plus-nx
-          #- mupen64plus # Renamed to mupen64plus-nx
           - mu
           - mrboom
           - moonlight
@@ -263,11 +357,11 @@ jobs:
           - mame2003_midway
           - mame2003
           - mame2000
-          - mame # Insanely huge and long running (hours and 50GB on a fast machine)
+          #- mame # Insanely huge and long running (hours and 50GB on a fast machine)
           - lutro
           - lrps2
           - jumpnbump
-          - hbmame
+          #- hbmame # Currently fails to build
           - hatari
           - handy
           - gw
@@ -295,12 +389,10 @@ jobs:
           - fbalpha2012-cps2
           - fbalpha2012-cps1
           - fbalpha2012
-          #- fbalpha # Renamed to fbneo
           - ep128emu
           - ecwolf
           - easyrpg
           - dosbox-pure
-          #- dosbox-core # Add-on marked as broken
           - dosbox
           - dolphin
           - dinothawr
@@ -337,27 +429,25 @@ jobs:
           - beetle-ngp
           - beetle-lynx
           - beetle-gba
-          #- beetle-cygne # Renamed to beetle-wswan
           - beetle-bsnes
           - atari800
           - a5200
           - 81
-          #- 4do # Renamed to opera
           - 3dengine
           - 2048
 
-    - script: |
-        echo
-        echo "wiki.txt:"
-        echo
-        cat game-addons/wiki.txt
-        echo
-      displayName: 'Print wiki.txt'
+      - script: |
+          echo
+          echo "wiki.txt:"
+          echo
+          cat game-addons/wiki.txt || true
+          echo
+        displayName: 'Print wiki.txt'
 
-    - script: |
-        echo
-        echo "summary.html:"
-        echo
-        cat game-addons/summary.html
-        echo
-      displayName: 'Print summary.html'
+      - script: |
+          echo
+          echo "summary.html:"
+          echo
+          cat game-addons/summary.html || true
+          echo
+        displayName: 'Print summary.html'
