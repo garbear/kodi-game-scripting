@@ -16,9 +16,12 @@
 
 """ Test common utility functions """
 
+import os
+
 import pytest
 
-from kodi_game_scripting.template_processor import get_list, regex_replace
+from kodi_game_scripting.template_processor import (TemplateProcessor,
+                                                    get_list, regex_replace)
 
 pytestmark = [pytest.mark.unit]
 
@@ -43,3 +46,25 @@ def test_regexreplace_multiline():
     """ Test the regex_replace filter with a multiline string """
     assert regex_replace(
         'a\nbb\nc', r'(b+)\n', '', multiline=True) == 'a\nc'
+
+
+def test_summary_without_loaded_metadata(tmpdir):
+    """A failed compilation still produces summaries with a fallback license."""
+    addon = {
+        'assets': {},
+        'game': {
+            'addon': 'game.libretro.failed',
+            'name': 'failed',
+            'version': '0.0.0',
+        },
+        'git': {},
+        'library': {},
+        'libretro_info': {},
+        'system_info': {},
+    }
+
+    TemplateProcessor.process('summary', str(tmpdir), {'addons': [addon]})
+
+    with open(os.path.join(str(tmpdir), 'wiki.txt'),
+              encoding='utf-8') as wiki_file:
+        assert '{{yes|Unlicensed}}' in wiki_file.read()

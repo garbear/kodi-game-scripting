@@ -8,14 +8,15 @@
 | Name= [[Add-on:{{ addon.libretro_info.display_name | default(addon.game.name) | default(addon.system_info.name) | default(addon.game.name) }}|{{ addon.libretro_info.display_name | default(addon.game.name) | default(addon.system_info.name) | default(addon.game.name) }}]]
 | Platform= {{ addon.libretro_info.systemname | default('') }}
 | Version= {{ addon.game.version | default('0.0.0') }}
-{% if addon.libretro_info.license in ['Non-commercial'] %}
+{% set license = addon.libretro_info.license | default('Unlicensed') %}
+{% if license in ['Non-commercial'] %}
     {% set license_status = 'no' %}
-{% elif addon.libretro_info.license in ['GPLv3'] %}
+{% elif license in ['GPLv3'] %}
     {% set license_status = 'partial' %}
 {% else %}
     {% set license_status = 'yes' %}
 {% endif %}
-| License= {{ '{{' }}{{ license_status }}|{{ addon.libretro_info.license.split('|') | join(', ') | default('?') }}{{ '}}' }}
+| License= {{ '{{' }}{{ license_status }}|{{ license.split('|') | join(', ') }}{{ '}}' }}
 {% set supports_vfs = 'no' if addon.system_info.need_fullpath else 'yes' %}
 | Supports VFS= {{ '{{' }}{{ supports_vfs }}|{{ supports_vfs }}{{ '}}' }}
 | Supports Rewind= ?
