@@ -72,4 +72,4 @@ jobs:
         # parallext
         dpkg -s nasm || sudo apt install -y nasm
       addons:
-        - swanstation
+        - pcsx-rearmed
