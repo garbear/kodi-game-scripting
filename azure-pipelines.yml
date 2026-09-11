@@ -28,6 +28,6 @@ jobs:
         # OpenGL cores
         dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
       addons:
-        - yabasanshiro
-        - xrick
-        - xmil
+        - beetle-psx
+        - pcsx-rearmed
+        - swanstation
