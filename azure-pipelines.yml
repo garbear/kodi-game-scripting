@@ -28,4 +28,5 @@ jobs:
         # OpenGL cores
         dpkg -s mesa-common-dev || sudo apt install -y mesa-common-dev
       addons:
-        - blastem
+        - dosbox-pure
+        - dosbox
