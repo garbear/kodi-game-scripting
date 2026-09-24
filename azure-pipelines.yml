@@ -63,31 +63,6 @@ jobs:
         #dpkg -s libgl-dev || sudo apt install -y libgl-dev
         #dpkg -s libopus-dev || sudo apt install -y libopus-dev
       addons:
-        - tyrquake
-        - thepowdertoy
-        - theodore
-        - tgbdual
-        - swanstation
-        - supafaust
-        - stella2023
-        - stella2014
-        - stella
-        - snes9x2010
-        - snes9x2002
-        - snes9x
-        - smsplus-gx
-        #- scummvm # Broken, needs updates
-        - sameboy
-        - same_cdi
-        #- rustation # Disabled for now
-        - retro8
-        - remotejoy
-        - reminiscence
-        - redbook
-        - race
-        - quicknes
-        - quasi88
-        - px68k
         - prosystem
         - prboom
         - ppsspp
