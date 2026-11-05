@@ -25,4 +25,4 @@ jobs:
       vmImage: 'ubuntu-24.04'
       pythonVersion: '3.10'
       addons:
-        - fceumm
+        - fbneo
