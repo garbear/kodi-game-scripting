@@ -247,3 +247,21 @@ jobs:
         - 81
         - 3dengine
         - 2048
+
+  # rpcs3 needs LLVM 21 or newer
+  - template: .azure/job-template.yml
+    parameters:
+      displayName: "BuildUbuntu2604"
+      vmImage: 'ubuntu-26.04'
+      pythonVersion: '3.12'
+      installScript: |
+        # rpcs3
+        dpkg -s libcurl4-openssl-dev || sudo apt install -y libcurl4-openssl-dev
+        dpkg -s libegl-dev || sudo apt install -y libegl-dev
+        dpkg -s libgl-dev || sudo apt install -y libgl-dev
+        dpkg -s libglew-dev || sudo apt install -y libglew-dev
+        dpkg -s libvulkan-dev || sudo apt install -y libvulkan-dev
+        dpkg -s llvm-dev || sudo apt install -y llvm-dev
+        dpkg -s zlib1g-dev || sudo apt install -y zlib1g-dev
+      addons:
+        - rpcs3
